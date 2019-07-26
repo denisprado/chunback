@@ -11,8 +11,16 @@ class File extends Model {
         sequelize,
       }
     );
-
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.Album, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+      },
+    });
   }
 }
 

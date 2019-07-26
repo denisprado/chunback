@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Page extends Model {
+class Album extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -16,8 +16,8 @@ class Page extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: 'image_id', as: 'image' });
+    this.hasMany(models.File);
   }
 }
 
-export default Page;
+export default Album;

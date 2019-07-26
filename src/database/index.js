@@ -3,9 +3,10 @@ import Sequelize from 'sequelize';
 import User from '../app/models/User';
 import File from '../app/models/File';
 import Page from '../app/models/Page';
+import Album from '../app/models/Album';
 import databaseConfig from '../config/database';
 
-const models = [User, File, Page];
+const models = [User, File, Page, Album];
 class Database {
   constructor() {
     this.init();

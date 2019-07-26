@@ -1,11 +1,13 @@
 import * as Yup from 'yup';
 import Page from '../models/Page';
+import File from '../models/File';
 
 class PageController {
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       content: Yup.string(),
+      image_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -17,30 +19,43 @@ class PageController {
     if (PageExists) {
       return res.status(400).json({ error: 'Page alredy exists.' });
     }
-    const { id, title, content } = await Page.create(req.body);
+    const { id, title, content, image_id } = await Page.create(req.body);
 
-    return res.json({ id, title, content });
+    return res.json({ id, title, content, image_id });
   }
 
   async index(req, res) {
-    const Pages = await Page.findAll();
+    if (req.params.id) {
+      const page = await Page.findAll({
+        include: [{ model: File, as: 'image' }],
+        where: { id: req.params.id },
+      });
+      return res.json(page);
+    }
 
-    return res.json(Pages);
+    const pages = await Page.findAll({
+      include: [{ model: File, as: 'image' }],
+    });
+
+    return res.json(pages);
   }
 
   async update(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string(),
       content: Yup.string(),
+      image_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
-    const { id, title, content } = await Page.update(req.body);
+    const page = await Page.findByPk(req.body.id);
 
-    return res.json({ id, title, content });
+    const { id, title, content, image_id } = await page.update(req.body);
+
+    return res.json({ id, title, content, image_id });
   }
 }
 
