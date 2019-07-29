@@ -33,6 +33,8 @@ routes.put('/albums', AlbumController.update);
 routes.get('/users', UserController.index);
 routes.put('/users', authMiddleware, UserController.update);
 
+routes.get('/files/:id', FileController.index);
+routes.delete('/files/:id', FileController.delete);
 routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;
