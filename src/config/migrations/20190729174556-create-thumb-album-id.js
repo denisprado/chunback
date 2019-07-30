@@ -8,7 +8,7 @@ module.exports = {
 
       Example:
       */
-    return queryInterface.addColumn('albums', 'thumb_id', {
+    return queryInterface.addColumn('albums', 'thumb', {
       type: Sequelize.INTEGER,
       references: { model: 'files', key: 'id' },
       onUpdate: 'CASCADE',
@@ -23,6 +23,6 @@ module.exports = {
 
       Example:
       */
-    return queryInterface.removeColumn('albums', 'thumb_id');
+    return queryInterface.removeColumn('albums', 'thumb');
   },
 };

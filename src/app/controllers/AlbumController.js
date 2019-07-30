@@ -6,14 +6,14 @@ class AlbumController {
   async index(req, res) {
     if (req.params.id) {
       const album = await Album.findAll({
-        include: [{ model: File }],
+        include: [{ all: true }],
         where: { id: req.params.id },
       });
       return res.json(album);
     }
 
     const albums = await Album.findAll({
-      include: [{ model: File }],
+      include: [{ all: true }],
     });
 
     return res.json(albums);
@@ -41,12 +41,10 @@ class AlbumController {
     return res.json({ id, title, content, images_ids });
   }
 
-
   async update(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string(),
       content: Yup.string(),
-
     });
 
     if (!(await schema.isValid(req.body))) {

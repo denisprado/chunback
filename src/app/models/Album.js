@@ -17,6 +17,7 @@ class Album extends Model {
 
   static associate(models) {
     this.hasMany(models.File);
+    this.belongsTo(models.File, { foreignKey: 'thumb', as: 'thumbImage' });
   }
 }
 
