@@ -9,11 +9,14 @@ class AlbumController {
         include: [{ all: true }],
         where: { id: req.params.id },
       });
-      if (req.params.initialId) {
+      if (req.query.page) {
+        const { page = req.query.page } = req.query;
         const files = await File.findAll({
           where: {
             AlbumId: req.params.id,
           },
+          limit: 1,
+          offset: page - 1,
         });
         return res.json(files);
       }
