@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import Album from '../models/Album';
+import File from '../models/File';
 
 class AlbumController {
   async index(req, res) {
@@ -8,6 +9,14 @@ class AlbumController {
         include: [{ all: true }],
         where: { id: req.params.id },
       });
+      if (req.params.initialId) {
+        const files = await File.findAll({
+          where: {
+            AlbumId: req.params.id,
+          },
+        });
+        return res.json(files);
+      }
       return res.json(album);
     }
 
