@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import Album from '../models/Album';
-import File from '../models/File';
 
 class AlbumController {
   async index(req, res) {
@@ -45,6 +44,7 @@ class AlbumController {
     const schema = Yup.object().shape({
       title: Yup.string(),
       content: Yup.string(),
+      thumb: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
