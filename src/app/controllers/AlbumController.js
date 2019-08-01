@@ -5,22 +5,12 @@ import File from '../models/File';
 class AlbumController {
   async index(req, res) {
     if (req.params.id) {
-      const album = await Album.findAll({
-        include: [{ all: true }],
-        where: { id: req.params.id },
+      const files = await File.findAll({
+        where: {
+          AlbumId: req.params.id,
+        },
       });
-      if (req.query.page) {
-        const { page = req.query.page } = req.query;
-        const files = await File.findAll({
-          where: {
-            AlbumId: req.params.id,
-          },
-          limit: 1,
-          offset: page - 1,
-        });
-        return res.json(files);
-      }
-      return res.json(album);
+      return res.json(files);
     }
 
     const albums = await Album.findAll({
