@@ -4,18 +4,31 @@ import File from '../models/File';
 
 class AlbumController {
   async index(req, res) {
+
+    // Adiciona headers adequados para o react-admin
     const count = await Album.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
+
     if (req.params.id) {
-      const files = await File.findAll({
-        where: {
-          AlbumId: req.params.id,
-        },
+      // Retorna a busca por arquivos de um álbum
+      if (req.query.files) {
+        const files = await File.findAll({
+          where: {
+            AlbumId: req.params.id,
+          },
+        });
+        return res.send(files);
+      }
+
+      // Retorna a busca por um ábum específico
+      const album = await Album.findByPk(req.params.id, {
+        include: [{ all: true }],
       });
-      return res.json(files);
+      return res.send(album);
     }
 
+    // Retorna todos os albums (req.params.is é nullo)
     const albums = await Album.findAll({
       include: [{ all: true }],
     });
@@ -23,6 +36,7 @@ class AlbumController {
     return res.json(albums);
   }
 
+  // Cadastra um álbum
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),

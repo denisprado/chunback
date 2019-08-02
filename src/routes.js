@@ -39,7 +39,6 @@ routes.get('/pages', PageController.index);
 routes.get('/pages/:id', PageController.index);
 
 routes.get('/albums', AlbumController.index);
-routes.get('/albums/:id/files', AlbumController.index);
 routes.get('/albums/:id', AlbumController.index);
 
 // routes.use(authMiddleware);
