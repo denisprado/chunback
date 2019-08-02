@@ -2,8 +2,16 @@ import File from '../models/File';
 
 class FileControler {
   async index(req, res) {
-    const file = await File.findAll({ where: { id: req.params.id } });
-    return res.json(file);
+    const count = await File.count();
+    res.setHeader('X-Total-Count', count);
+    res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
+    if (req.params.id) {
+      const file = await File.findAll({ where: { id: req.params.id } });
+
+      return res.json(file);
+    }
+    const files = await File.findAll();
+    return res.json(files);
   }
 
   async store(req, res) {

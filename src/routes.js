@@ -53,6 +53,7 @@ routes.put('/albums', AlbumController.update);
 routes.get('/users', UserController.index);
 routes.put('/users', authMiddleware, UserController.update);
 
+routes.get('/files', FileController.index);
 routes.get('/files/:id', FileController.index);
 routes.delete('/files/:id', FileController.delete);
 routes.post('/files', upload.single('file'), FileController.store);
@@ -73,7 +74,7 @@ routes.post('/send', (req, res, next) => {
       res.json({ msg: 'Houve algum erro no envio' });
     } else {
       res.json({
-        msg: 'Email enviado com sucesso! Entraremos em contato em breve.'
+        msg: 'Email enviado com sucesso! Entraremos em contato em breve.',
       });
     }
   });

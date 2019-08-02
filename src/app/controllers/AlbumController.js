@@ -4,6 +4,9 @@ import File from '../models/File';
 
 class AlbumController {
   async index(req, res) {
+    const count = await Album.count();
+    res.setHeader('X-Total-Count', count);
+    res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
     if (req.params.id) {
       const files = await File.findAll({
         where: {

@@ -3,7 +3,6 @@ import User from '../models/User';
 
 class UserController {
   async store(req, res) {
-
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string()
@@ -31,6 +30,9 @@ class UserController {
   async index(req, res) {
     const users = await User.findAll();
 
+    const count = await User.count();
+    res.setHeader('X-Total-Count', count);
+    res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
     return res.json(users);
   }
 

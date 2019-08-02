@@ -25,12 +25,14 @@ class PageController {
   }
 
   async index(req, res) {
+    const count = await Page.count();
+    res.setHeader('X-Total-Count', count);
+    res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
     if (req.params.id) {
-      const page = await Page.findAll({
+      const page = await Page.findByPk(req.params.id, {
         include: [{ model: File, as: 'image' }],
-        where: { id: req.params.id },
       });
-      return res.json(page);
+      return res.send(page);
     }
 
     const pages = await Page.findAll({
