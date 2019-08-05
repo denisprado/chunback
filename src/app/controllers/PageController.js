@@ -22,29 +22,40 @@ class PageController {
     }
     const { id, title, content, image_id } = await Page.create(req.body);
 
+    await Cache.invalidate(`pages`);
     return res.json({ id, title, content, image_id });
   }
 
   async index(req, res) {
+    if (req.params.id) {
+      const count = await Page.count();
+      res.setHeader('X-Total-Count', count);
+      res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
+      const cached = await Cache.get(`page+${req.params.id}`);
+
+      if (cached) {
+        return res.json(cached);
+      }
+      const page = await Page.findByPk(req.params.id, {
+        include: [{ model: File, as: 'image' }],
+      });
+      await Cache.set(`page+${req.params.id}`, page);
+      return res.send(page);
+    }
     const cached = await Cache.get('pages');
 
     if (cached) {
       return res.json(cached);
     }
-
     const count = await Page.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-    if (req.params.id) {
-      const page = await Page.findByPk(req.params.id, {
-        include: [{ model: File, as: 'image' }],
-      });
-      return res.send(page);
-    }
 
     const pages = await Page.findAll({
       include: [{ model: File, as: 'image' }],
     });
+
+    await Cache.set('pages', pages);
 
     return res.json(pages);
   }
@@ -63,7 +74,8 @@ class PageController {
     const page = await Page.findByPk(req.body.id);
 
     const { id, title, content, image_id } = await page.update(req.body);
-
+    await Cache.invalidate(`page+${req.body.id}`);
+    await Cache.invalidate(`pages`);
     return res.json({ id, title, content, image_id });
   }
 }

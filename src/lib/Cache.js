@@ -1,28 +1,26 @@
-require('dotenv').config();
 import Redis from 'ioredis';
+import configRedis from '../config/redis';
 
 class Cache {
-  constructor(){
-    this.redis = new Redis({
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
+  constructor() {
+    this.redis = new Redis(process.env.REDIS_URL, {
       keyPrefix: 'cache:',
-    },),
+    });
   }
 
-  set(key, value){
-    return this.redis.set(key, JSON.stringify(value), 'EX', 60*60*24)
+  set(key, value) {
+    return this.redis.set(key, JSON.stringify(value), 'EX', 60 * 60 * 24);
   }
 
-  async get(key){
-    const cached = await this.redis.get(key)
+  async get(key) {
+    const cached = await this.redis.get(key);
 
     return cached ? JSON.parse(cached) : null;
   }
 
-  invalidate(key){
-    return this.redis.del(key)
+  invalidate(key) {
+    return this.redis.del(key);
   }
 }
 
-export default new Cache
+export default new Cache();
