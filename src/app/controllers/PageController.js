@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import Page from '../models/Page';
 import File from '../models/File';
+import Cache from '../../lib/Cache';
 
 class PageController {
   async store(req, res) {
@@ -25,6 +26,12 @@ class PageController {
   }
 
   async index(req, res) {
+    const cached = await Cache.get('pages');
+
+    if (cached) {
+      return res.json(cached);
+    }
+
     const count = await Page.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
