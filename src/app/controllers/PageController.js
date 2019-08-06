@@ -78,6 +78,15 @@ class PageController {
     await Cache.invalidate(`pages`);
     return res.json({ id, title, content, image_id });
   }
+
+  async delete(req, res) {
+    await Page.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return null;
+  }
 }
 
 export default new PageController();

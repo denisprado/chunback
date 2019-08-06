@@ -36,6 +36,7 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.get('/pages', PageController.index);
+routes.delete('/pages/:id', PageController.delete);
 routes.get('/pages/:id', PageController.index);
 
 routes.get('/albums', AlbumController.index);
