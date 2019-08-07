@@ -39,6 +39,13 @@ class FileControler {
     const file = await File.destroy({ where: { id: req.params.id } });
     return res.json(file);
   }
+
+  async delete_all(req, res) {
+    const file = await File.destroy({
+      truncate: true,
+    });
+    return res.json(file);
+  }
 }
 
 export default new FileControler();

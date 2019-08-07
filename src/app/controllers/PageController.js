@@ -53,10 +53,10 @@ class PageController {
 
     const pages = await Page.findAll({
       include: [{ model: File, as: 'image' }],
+      order: [['id', 'ASC']],
     });
 
     await Cache.set('pages', pages);
-
     return res.json(pages);
   }
 
@@ -73,19 +73,20 @@ class PageController {
 
     const page = await Page.findByPk(req.body.id);
 
-    const { id, title, content, image_id } = await page.update(req.body);
+    const page_update = await page.update(req.body);
     await Cache.invalidate(`page+${req.body.id}`);
     await Cache.invalidate(`pages`);
-    return res.json({ id, title, content, image_id });
+    return res.json(page_update);
   }
 
   async delete(req, res) {
-    await Page.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
-    return null;
+    try {
+      await Cache.invalidate(`pages`);
+      Page.destroy({ where: { id: req.params.id } });
+      return null;
+    } catch (err) {
+      return res.send(err);
+    }
   }
 }
 
