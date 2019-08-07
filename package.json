@@ -30,6 +30,10 @@
     "sucrase": "^3.10.1"
   },
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": "11.14.0"
   }
 }
