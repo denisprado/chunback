@@ -16,7 +16,12 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
-    this.server.use(cors());
+
+    if (process.env.NODE_ENV === 'development') {
+      this.server.use(cors());
+    } else {
+      this.server.use(cors({ origin: process.env.FRONT_URL }));
+    }
     this.server.use(
       '/files',
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
