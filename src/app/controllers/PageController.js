@@ -27,6 +27,7 @@ class PageController {
   }
 
   async index(req, res) {
+
     if (req.params.id) {
       const count = await Page.count();
       res.setHeader('X-Total-Count', count);
