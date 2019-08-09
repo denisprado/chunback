@@ -54,7 +54,10 @@ class PageController {
     const count = await Page.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-
+    res.setHeader(
+      'Access-Control-Allow-Origin',
+      `https://chun-front.herokuapp.com`
+    );
     const pages = await Page.findAll({
       include: [{ model: File, as: 'image' }],
       order: [['id', 'ASC']],

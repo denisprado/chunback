@@ -4,12 +4,14 @@ var _File = require('../models/File'); var _File2 = _interopRequireDefault(_File
 
 class AlbumController {
   async index(req, res) {
-
     // Adiciona headers adequados para o react-admin
     const count = await _Album2.default.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-
+    res.setHeader(
+      'Access-Control-Allow-Origin',
+      `https://chun-front.herokuapp.com`
+    );
     if (req.params.id) {
       // Retorna a busca por arquivos de um álbum
       if (req.query.files) {
