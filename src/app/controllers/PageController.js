@@ -27,14 +27,16 @@ class PageController {
   }
 
   async index(req, res) {
+    res.setHeader(
+      'Access-Control-Allow-Origin',
+      `https://chun-front.herokuapp.com`
+    );
+    res.setHeader('Access-Control-Allow-Origin', `http://localhost:3000`);
+
     if (req.params.id) {
       const count = await Page.count();
       res.setHeader('X-Total-Count', count);
       res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-      res.setHeader(
-        'Access-Control-Allow-Origin',
-        `https://chun-front.herokuapp.com`
-      );
       const cached = await Cache.get(`page+${req.params.id}`);
 
       if (cached) {
@@ -54,10 +56,7 @@ class PageController {
     const count = await Page.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-    res.setHeader(
-      'Access-Control-Allow-Origin',
-      `https://chun-front.herokuapp.com`
-    );
+
     const pages = await Page.findAll({
       include: [{ model: File, as: 'image' }],
       order: [['id', 'ASC']],
@@ -88,8 +87,8 @@ class PageController {
 
   async delete(req, res) {
     try {
-      await Cache.invalidate(`pages`);
       Page.destroy({ where: { id: req.params.id } });
+      await Cache.invalidate(`pages`);
       return null;
     } catch (err) {
       return res.send(err);

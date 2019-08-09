@@ -12,6 +12,7 @@ class AlbumController {
       'Access-Control-Allow-Origin',
       `https://chun-front.herokuapp.com`
     );
+    res.setHeader('Access-Control-Allow-Origin', `http://localhost:3000`);
     if (req.params.id) {
       // Retorna a busca por arquivos de um álbum
       if (req.query.files) {
