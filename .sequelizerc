@@ -5,5 +5,4 @@ module.exports={
   'models-path': resolve(__dirname,'src', 'config','models'),
   'migrations-path': resolve(__dirname,'src', 'config','migrations'),
   'seeders-path': resolve(__dirname,'src', 'config','seeds'),
-
 }
