@@ -35,12 +35,9 @@ class UserController {
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
     res.setHeader(
       'Access-Control-Allow-Origin',
-      `https://chun-front.herokuapp.com/`
+      `https://chun-front.herokuapp.com`
     );
-    res.setHeader(
-      'Access-Control-Allow-Origin',
-      `https://chun-front.herokuapp.com/`
-    );
+
     return res.json(users);
   }
 

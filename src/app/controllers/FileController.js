@@ -7,7 +7,7 @@ class FileControler {
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
     res.setHeader(
       'Access-Control-Allow-Origin',
-      `https://chun-front.herokuapp.com/`
+      `https://chun-front.herokuapp.com`
     );
     if (req.params.id) {
       const file = await File.findAll({ where: { id: req.params.id } });

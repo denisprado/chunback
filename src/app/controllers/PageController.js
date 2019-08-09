@@ -33,7 +33,7 @@ class PageController {
       res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
       res.setHeader(
         'Access-Control-Allow-Origin',
-        `https://chun-front.herokuapp.com/`
+        `https://chun-front.herokuapp.com`
       );
       const cached = await Cache.get(`page+${req.params.id}`);
 
