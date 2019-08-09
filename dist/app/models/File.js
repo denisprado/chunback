@@ -2,6 +2,10 @@
 
 class File extends _sequelize.Model {
   static init(sequelize) {
+    const URL =
+      process.env.NODE_ENV === 'production'
+        ? `${process.env.APP_URL_PROD}/files/${this.path}`
+        : `${process.env.APP_URL}/files/${this.path}`;
     super.init(
       {
         name: _sequelize2.default.STRING,
@@ -9,7 +13,7 @@ class File extends _sequelize.Model {
         url: {
           type: _sequelize2.default.VIRTUAL,
           get() {
-            return `${process.env.APP_URL}/files/${this.path}`;
+            return URL;
           },
         },
       },
