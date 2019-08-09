@@ -33,10 +33,7 @@ class UserController {
     const count = await User.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-    res.setHeader(
-      'Access-Control-Allow-Origin',
-      `https://chun-front.herokuapp.com`
-    );
+    res.setHeader('Access-Control-Allow-Origin', `*`);
 
     return res.json(users);
   }

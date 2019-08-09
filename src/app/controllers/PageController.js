@@ -27,11 +27,7 @@ class PageController {
   }
 
   async index(req, res) {
-    res.setHeader(
-      'Access-Control-Allow-Origin',
-      `https://chun-front.herokuapp.com`
-    );
-    res.setHeader('Access-Control-Allow-Origin', `http://localhost:3000`);
+    res.setHeader('Access-Control-Allow-Origin', `*`);
 
     if (req.params.id) {
       const count = await Page.count();

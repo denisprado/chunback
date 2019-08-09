@@ -8,11 +8,7 @@ class AlbumController {
     const count = await _Album2.default.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-    res.setHeader(
-      'Access-Control-Allow-Origin',
-      `https://chun-front.herokuapp.com`
-    );
-    res.setHeader('Access-Control-Allow-Origin', `http://localhost:3000`);
+    res.setHeader('Access-Control-Allow-Origin', `*`);
     if (req.params.id) {
       // Retorna a busca por arquivos de um álbum
       if (req.query.files) {
