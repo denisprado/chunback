@@ -17,27 +17,30 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.get('/pages', PageController.index);
-routes.delete('/pages/:id', PageController.delete);
 routes.get('/pages/:id', PageController.index);
-routes.post('/pages', PageController.store);
-routes.put('/pages', PageController.update);
 
 routes.get('/albums', AlbumController.index);
 routes.get('/albums/:id', AlbumController.index);
 
+routes.get('/files', FileController.index);
+routes.get('/files/:id', FileController.index);
+
 // routes.use(authMiddleware);
 
+routes.delete('/pages/:id', PageController.delete);
+routes.post('/pages', PageController.store);
+routes.put('/pages/:id', PageController.update);
+
 routes.post('/albums', AlbumController.store);
-routes.put('/albums', AlbumController.update);
+routes.delete('/albums/:id', AlbumController.delete);
+routes.put('/albums/:id', AlbumController.update);
 
 routes.get('/users', UserController.index);
 routes.put('/users', authMiddleware, UserController.update);
 
-routes.get('/files', FileController.index);
-routes.get('/files/:id', FileController.index);
 routes.delete('/files/:id', FileController.delete);
 routes.delete('/files/all', FileController.delete_all);
-routes.post('/files', upload.single('file'), FileController.store);
+routes.post('/files', upload.array('file'), FileController.store);
 
 routes.post('/send', EmailController.send);
 
