@@ -40,7 +40,7 @@ routes.put('/users', authMiddleware, UserController.update);
 
 routes.delete('/files/:id', FileController.delete);
 routes.delete('/files/all', FileController.delete_all);
-routes.post('/files', upload.array('file'), FileController.store);
+routes.post('/files', upload.array('files'), FileController.store);
 
 routes.post('/send', EmailController.send);
 

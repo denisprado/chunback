@@ -77,7 +77,7 @@ class PageController {
     const page_update = await page.update(req.body);
     await Cache.invalidate(`page+${req.body.id}`);
     await Cache.invalidate(`pages`);
-    return res.json(page_update);
+    return res.send(page_update);
   }
 
   async delete(req, res) {
