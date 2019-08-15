@@ -7,25 +7,29 @@ class FileControler {
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
     res.setHeader('Access-Control-Allow-Origin', `*`);
     if (req.params.id) {
-      const file = await _File2.default.findAll({ where: { id: req.params.id } });
+      const file = await _File2.default.findByPk(req.params.id);
 
-      return res.json(file);
+      return res.send(file);
     }
     const files = await _File2.default.findAll();
     return res.json(files);
   }
 
   async store(req, res) {
-    const { originalname: name, filename: path } = req.file;
-    const { albumId: AlbumId } = req.body;
-
-    const file = await _File2.default.create({
-      name,
-      path,
+    const { AlbumId } = req.body;
+    const uploadedFiles = req.files.map(file => ({
+      name: file.originalname,
+      path: file.filename,
       AlbumId,
-    });
+    }));
 
-    return res.json(file);
+    _File2.default.bulkCreate(uploadedFiles)
+      .then(() => {
+        return _File2.default.findAll();
+      })
+      .then(files => {
+        return res.json(files);
+      });
   }
 
   async update(req, res) {
@@ -38,7 +42,7 @@ class FileControler {
 
   async delete(req, res) {
     const file = await _File2.default.destroy({ where: { id: req.params.id } });
-    return res.json(file);
+    return res.send(file[0]);
   }
 
   async delete_all(req, res) {

@@ -54,7 +54,6 @@ class AlbumController {
       return res.status(400).json({ error: 'Album alredy exists.' });
     }
     const { id, title, content, images_ids } = await _Album2.default.create(req.body);
-
     return res.json({ id, title, content, images_ids });
   }
 
@@ -68,12 +67,18 @@ class AlbumController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails.' });
     }
+    const album = await _Album2.default.findByPk(req.params.id);
+    const updatedAlbum = await album.update(req.body);
+    return res.send(updatedAlbum);
+  }
 
-    const album = await _Album2.default.findByPk(req.body.id);
-
-    const { id, title, content } = await album.update(req.body);
-
-    return res.json({ id, title, content });
+  async delete(req, res) {
+    try {
+      _Album2.default.destroy({ where: { id: req.params.id } });
+      return null;
+    } catch (err) {
+      return res.send(err);
+    }
   }
 }
 

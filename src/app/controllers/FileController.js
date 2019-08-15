@@ -20,7 +20,7 @@ class FileControler {
     const uploadedFiles = req.files.map(file => ({
       name: file.originalname,
       path: file.filename,
-      albumId: AlbumId,
+      AlbumId,
     }));
 
     File.bulkCreate(uploadedFiles)

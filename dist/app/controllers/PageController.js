@@ -73,12 +73,11 @@ class PageController {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
-    const page = await _Page2.default.findByPk(req.body.id);
-
+    const page = await _Page2.default.findByPk(req.params.id);
     const page_update = await page.update(req.body);
     await _Cache2.default.invalidate(`page+${req.body.id}`);
     await _Cache2.default.invalidate(`pages`);
-    return res.json(page_update);
+    return res.send(page_update);
   }
 
   async delete(req, res) {
