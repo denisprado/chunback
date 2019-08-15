@@ -67,8 +67,10 @@ class AlbumController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails.' });
     }
+
     const album = await Album.findByPk(req.params.id);
     const updatedAlbum = await album.update(req.body);
+
     return res.send(updatedAlbum);
   }
 

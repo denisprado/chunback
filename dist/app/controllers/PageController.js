@@ -75,8 +75,10 @@ class PageController {
 
     const page = await _Page2.default.findByPk(req.params.id);
     const page_update = await page.update(req.body);
+
     await _Cache2.default.invalidate(`page+${req.body.id}`);
     await _Cache2.default.invalidate(`pages`);
+
     return res.send(page_update);
   }
 
