@@ -7,18 +7,16 @@ class SessionController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      passord: Yup.string().required(),
+      email: Yup.string().email(),
+      password: Yup.string().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails.' });
     }
-    const { email, password } = req.body;
+    const { name, password } = req.body;
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { name } });
 
     if (!user) {
       return res.status(401).json({ error: 'User not found.' });
@@ -28,7 +26,7 @@ class SessionController {
       return res.status(401).json({ error: 'Password does not matche.' });
     }
 
-    const { id, name } = user;
+    const { id, email } = user;
 
     return res.json({
       user: {
