@@ -19,14 +19,26 @@ class FileControler {
 
   async store(req, res) {
     const { AlbumId } = req.body;
-    console.log(req.body);
-    function convertImages(files) {
-      files.map(file => console.log(file.src));
-    }
 
-    convertImages(req.body.files);
+    // function urltoFile(url, filename, mimeType) {
+    //   return fetch(url)
+    //     .then(result => {
+    //       return result.arrayBuffer();
+    //     })
+    //     .then(buf => {
+    //       return new File([buf], filename, { type: mimeType });
+    //     });
+    // }
 
-    // const uploadedFiles = req.body.files.map(file => ({
+    // Usage example:
+
+    // req.body.files.map(file =>
+    //   urltoFile(file.rawFile, file.filename, 'image/*').then(myfile => {
+    //     console.log(myfile);
+    //   })
+    // );
+
+    /* const uploadedFiles = req.body.files.map(file => ({
     //   name: file.title,
     //   path: file.title,
     //   AlbumId,
@@ -38,7 +50,7 @@ class FileControler {
     //   })
     //   .then(files => {
     //     return res.json(files);
-    //   });
+    //   }); */
   }
 
   async update(req, res) {
