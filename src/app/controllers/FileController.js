@@ -1,7 +1,5 @@
 import File from '../models/File';
 
-const FileSaver = require('file-saver');
-
 class FileControler {
   async index(req, res) {
     const count = await File.count();
@@ -20,7 +18,7 @@ class FileControler {
   async store(req, res) {
     const { AlbumId } = req.body;
     console.log(`Aqui: ${req.body.files}`);
-    const uploadedFiles = req.body.files.map((file, index) => ({
+    const uploadedFiles = req.body.files.map(file => ({
       name: file.title,
       path: file.src,
       AlbumId,

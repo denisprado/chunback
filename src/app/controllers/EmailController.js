@@ -5,7 +5,7 @@ class EmailController {
   async send(req, res, next) {
     const { name, email, message } = req.body;
     const content = `name: ${name} \n email: ${email} \n message: ${message}`;
-    const domain = creds.USER;
+    const domain = creds.MAILGUN_USER;
     const mailgun = new Mailgun({ apiKey: creds.MAILGUN_API_KEY, domain });
     const data = {
       // Specify email data
