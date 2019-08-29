@@ -16,10 +16,10 @@ class FileControler {
   }
 
   async store(req, res) {
-    const { AlbumId } = req.body;
-    console.log(req.body);
-    //req.body.files.map(file => console.log(`Aqui: ${file}`));
-
+    // const { AlbumId } = req.body;
+    console.log(`my files: ${req}`);
+    // req.body.files.map(file => console.log(`Aqui: ${file}`));
+    return null;
     /* const uploadedFiles = req.body.files.map(file => ({
       name: file.title,
       path: file.src,
