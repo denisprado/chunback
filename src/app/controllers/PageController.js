@@ -27,7 +27,7 @@ class PageController {
   }
 
   async index(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', `*`);
+    res.setHeader('Access-Control-Allow-Origin', '*');
     await Cache.invalidate(`pages`);
     if (req.params.id) {
       const count = await Page.count();
