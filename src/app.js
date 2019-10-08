@@ -10,13 +10,12 @@ import './database';
 class App {
   constructor() {
     this.server = express();
-
+    this.use(cors());
     this.middlewares();
     this.routes();
   }
 
   middlewares() {
-    this.server.use(cors());
     this.server.use(express.json());
     this.server.use(
       '/files',
