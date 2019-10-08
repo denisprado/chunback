@@ -35,8 +35,5 @@
     "dev": "nodemon src/server.js",
     "build": "sucrase src -d ./dist --transforms imports",
     "start": "src/serve.js"
-  },
-  "engines": {
-    "node": "11.14.0"
   }
 }
