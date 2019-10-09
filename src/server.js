@@ -5,6 +5,6 @@ const port =
     ? process.env.LOCAL_PORT
     : process.env.PORT;
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log('Umbler listening on port %s', port);
 });
