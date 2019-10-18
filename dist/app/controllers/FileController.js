@@ -16,20 +16,24 @@ class FileControler {
   }
 
   async store(req, res) {
-    const { AlbumId } = req.body;
-    const uploadedFiles = req.files.map(file => ({
-      name: file.originalname,
-      path: file.filename,
+    // const { AlbumId } = req.body;
+    console.log(`my files: ${req.body}`);
+    // req.body.files.map(file => console.log(`Aqui: ${file}`));
+    return null;
+    /* const uploadedFiles = req.body.files.map(file => ({
+      name: file.title,
+      path: file.src,
       AlbumId,
     }));
 
-    _File2.default.bulkCreate(uploadedFiles)
+    File.bulkCreate(uploadedFiles)
       .then(() => {
-        return _File2.default.findAll();
+        return File.findAll();
       })
       .then(files => {
         return res.json(files);
       });
+      */
   }
 
   async update(req, res) {
