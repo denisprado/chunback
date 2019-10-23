@@ -41,7 +41,7 @@ routes.put('/users', _auth2.default, _UserController2.default.update);
 routes.delete('/files/:id', _FileController2.default.delete);
 routes.delete('/files/all', _FileController2.default.delete_all);
 // routes.post('/files', upload.single('file'), FileController.store);
-routes.post('/files', upload.array('file'), (req, res) => {
+routes.post('/files', upload.array('files'), (req, res) => {
   console.log(req.files);
   return null;
 });
