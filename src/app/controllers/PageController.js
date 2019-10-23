@@ -28,27 +28,27 @@ class PageController {
 
   async index(req, res) {
     res.setHeader('Access-Control-Allow-Origin', `*`);
-    await Cache.invalidate(`pages`);
+    // await Cache.invalidate(`pages`);
     if (req.params.id) {
       const count = await Page.count();
       res.setHeader('X-Total-Count', count);
       res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
-      const cached = await Cache.get(`page+${req.params.id}`);
+      // const cached = await Cache.get(`page+${req.params.id}`);
 
-      if (cached) {
+      /* if (cached) {
         return res.json(cached);
-      }
+      } */
       const page = await Page.findByPk(req.params.id, {
         include: [{ model: File, as: 'image' }],
       });
-      await Cache.set(`page+${req.params.id}`, page);
+      // await Cache.set(`page+${req.params.id}`, page);
       return res.send(page);
     }
-    const cached = await Cache.get('pages');
+    // const cached = await Cache.get('pages');
 
-    if (cached) {
+    /* if (cached) {
       return res.json(cached);
-    }
+    } */
     const count = await Page.count();
     res.setHeader('X-Total-Count', count);
     res.setHeader('Access-Control-Expose-Headers', `X-Total-Count`);
@@ -58,7 +58,7 @@ class PageController {
       order: [['id', 'ASC']],
     });
 
-    await Cache.set('pages', pages);
+    // await Cache.set('pages', pages);
     return res.json(pages);
   }
 
