@@ -41,10 +41,7 @@ routes.put('/users', authMiddleware, UserController.update);
 routes.delete('/files/:id', FileController.delete);
 routes.delete('/files/all', FileController.delete_all);
 // routes.post('/files', upload.single('file'), FileController.store);
-routes.post('/files', upload.single('files'), (req, res) => {
-  console.log(req.file);
-  return null;
-});
+routes.post('/files', upload.single('files'), FileController.store);
 
 routes.post('/send', EmailController.send);
 
