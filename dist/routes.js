@@ -42,7 +42,8 @@ routes.delete('/files/:id', _FileController2.default.delete);
 routes.delete('/files/all', _FileController2.default.delete_all);
 // routes.post('/files', upload.single('file'), FileController.store);
 routes.post('/files', upload.single('file'), (req, res) => {
-  return res.json(req.file);
+  console.log(res.json(req.file));
+  return null;
 });
 
 routes.post('/send', _EmailController2.default.send);
