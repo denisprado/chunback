@@ -30,9 +30,9 @@ class FileControler {
   }
 
   async update(req, res) {
-    const { albumId: AlbumId } = req.body;
+    const { AlbumId } = req.body;
     const file = await _File2.default.findByPk(req.params.id);
-    const fileUpdated = await file.update({ albumId: AlbumId });
+    const fileUpdated = await file.update({ AlbumId });
 
     return res.json(fileUpdated);
   }
