@@ -46,7 +46,7 @@ routes.post(
   '/files',
   upload.fields([{ name: 'files', maxCount: 100 }]),
   req => {
-    console.log(req.files.files);
+    console.log(req.files);
   }
 ); // changed single to array to upload multiple files.
 
