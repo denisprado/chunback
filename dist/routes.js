@@ -43,7 +43,7 @@ routes.delete('/files/all', _FileController2.default.delete_all);
 
 // routes.post('/files', upload.single('files'), FileController.store);
 routes.post('/files', upload.array('files'), (req, res) => {
-  console.log(req.body.files);
+  console.log(req.body);
   return null;
 }); // changed single to array to upload multiple files.
 
