@@ -50,6 +50,6 @@ routes.post(
   }
 ); // changed single to array to upload multiple files.
 
-routes.post('/send', EmailController.send);
+routes.post('/send', console.log('sending')); // EmailController.send);
 
 export default routes;
