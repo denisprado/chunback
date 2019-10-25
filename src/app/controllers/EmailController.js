@@ -7,7 +7,7 @@ class EmailController {
     const content = `name: ${name} \n email: ${email} \n message: ${message}`;
 
     const domain = creds.MAILGUN_USER;
-    console.log(domain);
+
     const mailgun = new Mailgun({ apiKey: creds.MAILGUN_API_KEY, domain });
     const data = {
       // Specify email data
@@ -23,6 +23,7 @@ class EmailController {
       // If there is an error, render the error page
       if (err) {
         res.status(404).json({ error: err });
+        console.log(`domain: ${domain}`);
         console.log('got an error: ', err);
       }
       // Else we can greet    and leave
