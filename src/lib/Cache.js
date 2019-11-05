@@ -1,4 +1,4 @@
-import Redis from 'ioredis';
+/* import Redis from 'ioredis';
 import configRedis from '../config/redis';
 
 class Cache {
@@ -24,3 +24,4 @@ class Cache {
 }
 
 export default new Cache();
+*/

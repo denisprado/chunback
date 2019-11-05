@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import Page from '../models/Page';
 import File from '../models/File';
-import Cache from '../../lib/Cache';
+// import Cache from '../../lib/Cache';
 
 class PageController {
   async store(req, res) {
@@ -22,7 +22,7 @@ class PageController {
     }
     const { id, title, content, image_id } = await Page.create(req.body);
 
-    await Cache.invalidate(`pages`);
+    // await Cache.invalidate(`pages`);
     return res.json({ id, title, content, image_id });
   }
 
@@ -76,8 +76,8 @@ class PageController {
     const page = await Page.findByPk(req.params.id);
     const page_update = await page.update(req.body);
 
-    await Cache.invalidate(`page+${req.body.id}`);
-    await Cache.invalidate(`pages`);
+    // await Cache.invalidate(`page+${req.body.id}`);
+    // await Cache.invalidate(`pages`);
 
     return res.send(page_update);
   }
@@ -85,7 +85,7 @@ class PageController {
   async delete(req, res) {
     try {
       Page.destroy({ where: { id: req.params.id } });
-      await Cache.invalidate(`pages`);
+      // await Cache.invalidate(`pages`);
       return null;
     } catch (err) {
       return res.send(err);
