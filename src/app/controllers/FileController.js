@@ -16,6 +16,7 @@ class FileControler {
   }
 
   async store(req, res) {
+    console.log(req.body.files);
     const { AlbumId } = req.body;
 
     const uploadedFiles = req.body.files.map(file => ({
