@@ -42,13 +42,7 @@ routes.delete('/files/:id', FileController.delete);
 routes.delete('/files/all', FileController.delete_all);
 
 // routes.post('/files', upload.single('files'), FileController.store);
-routes.post(
-  '/files',
-  upload.fields([{ name: 'files', maxCount: 100 }]),
-  req => {
-    console.log(req.files);
-  }
-); // changed single to array to upload multiple files.
+routes.post('/files', upload.array('files'), FileController.store); // changed single to array to upload multiple files.
 
 routes.post('/send', EmailController.send);
 
