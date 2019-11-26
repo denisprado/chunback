@@ -16,6 +16,7 @@ class FileControler {
   }
 
   async store(req, res) {
+    console.log(req.files);
     const { originalname: name, filename: path } = req.files;
     const { albumId: AlbumId } = req.body;
 
