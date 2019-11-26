@@ -17,7 +17,7 @@ class FileControler {
 
   async store(req, res) {
     const { originalname: name, filename: path } = req.file;
-    const { AlbumId } = req.body;
+    const { albumId: AlbumId } = req.body;
 
     const file = await File.create({
       name,
