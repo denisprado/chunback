@@ -1,7 +1,7 @@
 "use strict"; function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { newObj[key] = obj[key]; } } } newObj.default = obj; return newObj; } } function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }Object.defineProperty(exports, "__esModule", {value: true});var _yup = require('yup'); var Yup = _interopRequireWildcard(_yup);
 var _Page = require('../models/Page'); var _Page2 = _interopRequireDefault(_Page);
 var _File = require('../models/File'); var _File2 = _interopRequireDefault(_File);
-var _Cache = require('../../lib/Cache'); var _Cache2 = _interopRequireDefault(_Cache);
+// import Cache from '../../lib/Cache';
 
 class PageController {
   async store(req, res) {
@@ -22,7 +22,7 @@ class PageController {
     }
     const { id, title, content, image_id } = await _Page2.default.create(req.body);
 
-    await _Cache2.default.invalidate(`pages`);
+    // await Cache.invalidate(`pages`);
     return res.json({ id, title, content, image_id });
   }
 
@@ -76,8 +76,8 @@ class PageController {
     const page = await _Page2.default.findByPk(req.params.id);
     const page_update = await page.update(req.body);
 
-    await _Cache2.default.invalidate(`page+${req.body.id}`);
-    await _Cache2.default.invalidate(`pages`);
+    // await Cache.invalidate(`page+${req.body.id}`);
+    // await Cache.invalidate(`pages`);
 
     return res.send(page_update);
   }
@@ -85,7 +85,7 @@ class PageController {
   async delete(req, res) {
     try {
       _Page2.default.destroy({ where: { id: req.params.id } });
-      await _Cache2.default.invalidate(`pages`);
+      // await Cache.invalidate(`pages`);
       return null;
     } catch (err) {
       return res.send(err);

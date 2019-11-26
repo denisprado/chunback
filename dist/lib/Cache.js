@@ -1,9 +1,9 @@
-"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }Object.defineProperty(exports, "__esModule", {value: true});var _ioredis = require('ioredis'); var _ioredis2 = _interopRequireDefault(_ioredis);
-var _redis = require('../config/redis'); var _redis2 = _interopRequireDefault(_redis);
+"use strict";/* import Redis from 'ioredis';
+import configRedis from '../config/redis';
 
 class Cache {
   constructor() {
-    this.redis = new (0, _ioredis2.default)(process.env.REDIS_URL, {
+    this.redis = new Redis(process.env.REDIS_URL, {
       keyPrefix: 'cache:',
     });
   }
@@ -23,4 +23,5 @@ class Cache {
   }
 }
 
-exports. default = new Cache();
+export default new Cache();
+*/

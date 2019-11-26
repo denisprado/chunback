@@ -9,7 +9,7 @@ exports. default = {
     filename: (req, file, cb) => {
       _crypto2.default.randomBytes(16, (err, res) => {
         if (err) return cb(err);
-        return cb(null, Date.now() + _path.extname.call(void 0, file.originalname));
+        return cb(null, res.toString('hex') + _path.extname.call(void 0, file.originalname));
       });
     },
   }),
